@@ -1,27 +1,33 @@
 <?php
 
-declare(strict_types=1);
-
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
-use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+use App\Application\Controllers\UserController;
+use App\Application\Controllers\MessageController;
+use App\Application\Middleware\JwtMiddleware;
+use App\Application\Services\JwtService;
 
 return function (App $app) {
-    $app->options('/{routes:.*}', function (Request $request, Response $response) {
-        // CORS Pre-Flight OPTIONS Request Handler
-        return $response;
-    });
+    $container = $app->getContainer();
+    $jwtService = new JwtService($container->get('jwt_secret'));
 
-    $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
-        return $response;
-    });
+    // User routes (public)
+    $app->post('/register', [new UserController($jwtService), 'register']);
+    $app->post('/login', [new UserController($jwtService), 'login']);
 
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
-    });
+    // User CRUD (admin or protected ? Dans ce cas, protégé par token)
+    $app->group('/users', function ($group) use ($jwtService) {
+        $group->get('', [new UserController($jwtService), 'getAll']);
+        $group->get('/{id}', [new UserController($jwtService), 'getOne']);
+        $group->put('/{id}', [new UserController($jwtService), 'update']);
+        $group->delete('/{id}', [new UserController($jwtService), 'delete']);
+    })->add(new JwtMiddleware($jwtService));
+
+    // Message routes (auth required)
+    $app->group('/messages', function ($group) use ($jwtService) {
+        $group->get('', [new MessageController(), 'getAll']);
+        $group->get('/{id}', [new MessageController(), 'getOne']);
+        $group->post('', [new MessageController(), 'create']);
+        $group->put('/{id}', [new MessageController(), 'update']);
+        $group->delete('/{id}', [new MessageController(), 'delete']);
+    })->add(new JwtMiddleware($jwtService));
 };

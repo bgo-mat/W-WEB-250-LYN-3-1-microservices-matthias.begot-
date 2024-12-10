@@ -1,28 +1,34 @@
 <?php
 
-declare(strict_types=1);
-
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
-return function (ContainerInterface $container) {
-    $settings = $container->get('settings');
+return function (ContainerBuilder $containerBuilder) {
+    $containerBuilder->addDefinitions([
+        // Définition du logger
+        Logger::class => function (ContainerInterface $c) {
+            $settings = $c->get('settings');
+            $logger = new Logger($settings['logger']['name']);
+            $logger->pushHandler(new StreamHandler($settings['logger']['path'], $settings['logger']['level']));
+            return $logger;
+        },
 
-    // Logger
-    $logger = new Logger($settings['logger']['name']);
-    $logger->pushHandler(new StreamHandler($settings['logger']['path'], $settings['logger']['level']));
-    $container->set('logger', $logger);
+        // Définition de la DB (Eloquent)
+        'db' => function (ContainerInterface $c) {
+            $settings = $c->get('settings');
+            $capsule = new Capsule();
+            $capsule->addConnection($settings['db']);
+            $capsule->setAsGlobal();
+            $capsule->bootEloquent();
+            return $capsule;
+        },
 
-    // Eloquent
-    $capsule = new Capsule;
-    $capsule->addConnection($settings['db']);
-    $capsule->setAsGlobal();
-    $capsule->bootEloquent();
-    $container->set('db', $capsule);
-
-    // JWT secret
-    $container->set('jwt_secret', $settings['jwt']['secret']);
+        // Définition du secret JWT
+        'jwt_secret' => function (ContainerInterface $c) {
+            return $c->get('settings')['jwt']['secret'];
+        },
+    ]);
 };
-
