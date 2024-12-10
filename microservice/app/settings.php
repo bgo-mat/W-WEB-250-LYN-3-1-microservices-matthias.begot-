@@ -2,26 +2,28 @@
 
 declare(strict_types=1);
 
-use App\Application\Settings\Settings;
-use App\Application\Settings\SettingsInterface;
-use DI\ContainerBuilder;
-use Monolog\Logger;
-
-return function (ContainerBuilder $containerBuilder) {
-
-    // Global Settings Object
+return function (\DI\ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        SettingsInterface::class => function () {
-            return new Settings([
-                'displayErrorDetails' => true, // Should be set to false in production
-                'logError'            => false,
-                'logErrorDetails'     => false,
-                'logger' => [
-                    'name' => 'slim-app',
-                    'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
-                    'level' => Logger::DEBUG,
-                ],
-            ]);
-        }
+        'settings' => [
+            'displayErrorDetails' => true,
+            'logger' => [
+                'name' => 'slim-app',
+                'path' => __DIR__ . '/logs/app.log',
+                'level' => \Monolog\Logger::DEBUG,
+            ],
+            'db' => [
+                'driver' => 'mysql',
+                'host' => getenv('DB_HOST') ?: 'db',
+                'database' => getenv('DB_DATABASE') ?: 'mydb',
+                'username' => getenv('DB_USER') ?: 'root',
+                'password' => getenv('DB_PASS') ?: 'password',
+                'charset' => 'utf8',
+                'collation' => 'utf8_unicode_ci',
+                'prefix' => '',
+            ],
+            'jwt' => [
+                'secret' => getenv('JWT_SECRET') ?: 'secret_key_jwt'
+            ]
+        ],
     ]);
 };

@@ -2,29 +2,27 @@
 
 declare(strict_types=1);
 
-use App\Application\Settings\SettingsInterface;
-use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
-return function (ContainerBuilder $containerBuilder) {
-    $containerBuilder->addDefinitions([
-        LoggerInterface::class => function (ContainerInterface $c) {
-            $settings = $c->get(SettingsInterface::class);
+return function (ContainerInterface $container) {
+    $settings = $container->get('settings');
 
-            $loggerSettings = $settings->get('logger');
-            $logger = new Logger($loggerSettings['name']);
+    // Logger
+    $logger = new Logger($settings['logger']['name']);
+    $logger->pushHandler(new StreamHandler($settings['logger']['path'], $settings['logger']['level']));
+    $container->set('logger', $logger);
 
-            $processor = new UidProcessor();
-            $logger->pushProcessor($processor);
+    // Eloquent
+    $capsule = new Capsule;
+    $capsule->addConnection($settings['db']);
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+    $container->set('db', $capsule);
 
-            $handler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
-            $logger->pushHandler($handler);
-
-            return $logger;
-        },
-    ]);
+    // JWT secret
+    $container->set('jwt_secret', $settings['jwt']['secret']);
 };
+

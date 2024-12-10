@@ -16,6 +16,8 @@ WORKDIR /var/www/html
 
 RUN composer install
 
+RUN php database.php
+
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 9000
