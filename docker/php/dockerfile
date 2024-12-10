@@ -21,6 +21,7 @@ RUN apt -y install zsh
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 RUN composer require illuminate/database
+RUN composer require firebase/php-jwt
 
 EXPOSE 9000
 CMD ["php-fpm"]

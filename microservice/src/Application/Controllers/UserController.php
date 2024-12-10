@@ -22,6 +22,7 @@ class UserController
     public function register(Request $request, Response $response): Response
     {
         $data = $request->getParsedBody();
+        error_log('Request body: ' . print_r($data, true));
         $name = $data['name'] ?? null;
         $email = $data['email'] ?? null;
         $password = $data['password'] ?? null;

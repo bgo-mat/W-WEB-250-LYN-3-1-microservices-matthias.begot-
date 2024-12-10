@@ -28,6 +28,8 @@ $app = AppFactory::create();
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
 
+$container->get('db');
+
 $routes = require __DIR__ . '/../app/routes.php';
 $routes($app);
 
