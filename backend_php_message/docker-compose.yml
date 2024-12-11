@@ -4,7 +4,7 @@ services:
     php:
         build:
             context: .
-            dockerfile: ./docker/php/dockerfile
+            dockerfile: docker/php/dockerfile
         container_name: my_microservice_php
         working_dir: /var/www/html
         volumes:
@@ -15,7 +15,7 @@ services:
             - DB_DATABASE=mydb
             - DB_USER=root
             - DB_PASS=password
-            - JWT_SECRET=secret_key_jwt # Clé secrète pour JWT
+            - JWT_SECRET=secret_key_jwt
         depends_on:
             - db
 

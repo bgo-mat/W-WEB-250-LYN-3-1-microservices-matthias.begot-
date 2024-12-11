@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="67a36177-bad3-4ed5-92a7-1f1994d82aa2" name="Changes" comment="feat: create user work">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/nginx/default.conf" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/docker/nginx/default.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/nginx/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/docker/nginx/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/php/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/docker/php/dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/php/php.ini" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/docker/php/php.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/.coveralls.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/.coveralls.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/.github/dependabot.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/.github/dependabot.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/.github/workflows/tests.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/.github/workflows/tests.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/CONTRIBUTING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/app/dependencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/app/dependencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/app/middleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/app/middleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/app/repositories.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/app/repositories.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/app/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/app/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/app/settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/app/settings.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/database/migrations/2024_01_01_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/database/migrations/2024_01_01_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/database/migrations/2024_01_01_000001_create_messages_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/database/migrations/2024_01_01_000001_create_messages_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/logs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/logs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/phpcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/phpcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/phpstan.neon.dist" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/phpstan.neon.dist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/phpunit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/public/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Actions/Action.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Actions/Action.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Actions/ActionError.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Actions/ActionError.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Actions/ActionPayload.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Actions/ActionPayload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Actions/User/ListUsersAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Actions/User/ListUsersAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Actions/User/UserAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Actions/User/UserAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Actions/User/ViewUserAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Actions/User/ViewUserAction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Controllers/MessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Controllers/MessageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Handlers/HttpErrorHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Handlers/HttpErrorHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Handlers/ShutdownHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Handlers/ShutdownHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Middleware/JwtMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Middleware/JwtMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Middleware/SessionMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Middleware/SessionMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/ResponseEmitter/ResponseEmitter.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/ResponseEmitter/ResponseEmitter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Services/JwtService.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Services/JwtService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Settings/Settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Settings/Settings.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Application/Settings/SettingsInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Application/Settings/SettingsInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Domain/DomainException/DomainException.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Domain/DomainException/DomainException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Domain/DomainException/DomainRecordNotFoundException.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Domain/DomainException/DomainRecordNotFoundException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Domain/Message/Message.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Domain/Message/Message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Domain/User/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Domain/User/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Domain/User/UserNotFoundException.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Domain/User/UserNotFoundException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Domain/User/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Domain/User/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/src/Infrastructure/Persistence/User/InMemoryUserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/src/Infrastructure/Persistence/User/InMemoryUserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/tests/Application/Actions/ActionTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/tests/Application/Actions/ActionTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/tests/Application/Actions/User/ListUserActionTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/tests/Application/Actions/User/ListUserActionTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/tests/Application/Actions/User/ViewUserActionTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/tests/Application/Actions/User/ViewUserActionTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/tests/Domain/User/UserTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/tests/Domain/User/UserTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/tests/Infrastructure/Persistence/User/InMemoryUserRepositoryTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/tests/Infrastructure/Persistence/User/InMemoryUserRepositoryTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/tests/TestCase.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/tests/TestCase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/tests/bootstrap.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/tests/bootstrap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/microservice/var/cache/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend_php_message/microservice/var/cache/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/suivi.txt" beforeDir="false" afterPath="$PROJECT_DIR$/suivi.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/microservice/composer.json" />
+    </option>
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.3.0/bin/php">
+    <include_path>
+      <path value="$PROJECT_DIR$/microservice/vendor/composer" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/microservice/vendor/fig/http-message-util" />
+      <path value="$PROJECT_DIR$/microservice/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/microservice/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/microservice/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/microservice/vendor/psr/http-server-middleware" />
+      <path value="$PROJECT_DIR$/microservice/vendor/psr/http-server-handler" />
+      <path value="$PROJECT_DIR$/microservice/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/microservice/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/microservice/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/microservice/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/microservice/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/microservice/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/microservice/vendor/php-di/php-di" />
+      <path value="$PROJECT_DIR$/microservice/vendor/php-di/phpdoc-reader" />
+      <path value="$PROJECT_DIR$/microservice/vendor/php-di/invoker" />
+      <path value="$PROJECT_DIR$/microservice/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/microservice/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/microservice/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/microservice/vendor/slim/slim" />
+      <path value="$PROJECT_DIR$/microservice/vendor/slim/psr7" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpstan/extension-installer" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phpspec/prophecy-phpunit" />
+      <path value="$PROJECT_DIR$/microservice/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/microservice/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/microservice/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/microservice/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/microservice/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/microservice/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/microservice/vendor/jangregor/phpstan-prophecy" />
+    </include_path>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2q2OxIX5Xo6gSzGIWITQhQzSBvY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/matthiasbegot/piscineW@C/W-WEB-250-LYN-3-1-microservices-matthias.begot-/backend_php_message",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend_php_message" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend_php_message" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/microservice/docker" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="microservice" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner configuration_file="$PROJECT_DIR$/microservice/phpunit.xml" scope="XML" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14475.35" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="67a36177-bad3-4ed5-92a7-1f1994d82aa2" name="Changes" comment="" />
+      <created>1733857450009</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733857450009</updated>
+      <workItem from="1733857452467" duration="208000" />
+      <workItem from="1733857663381" duration="7267000" />
+      <workItem from="1733942956459" duration="1976000" />
+    </task>
+    <task id="LOCAL-00001" summary="init project">
+      <option name="closed" value="true" />
+      <created>1733857527151</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1733857527151</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add gitignore">
+      <option name="closed" value="true" />
+      <created>1733857595810</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733857595811</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init docker system">
+      <option name="closed" value="true" />
+      <created>1733860913500</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733860913500</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: Add user &amp; messages model/migrations">
+      <option name="closed" value="true" />
+      <created>1733861106645</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733861106645</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix: docker work">
+      <option name="closed" value="true" />
+      <created>1733865309598</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733865309598</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: create user work">
+      <option name="closed" value="true" />
+      <created>1733866377468</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733866377468</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init project" />
+    <MESSAGE value="add gitignore" />
+    <MESSAGE value="init docker system" />
+    <MESSAGE value="feat: Add user &amp; messages model/migrations" />
+    <MESSAGE value="fix: docker work" />
+    <MESSAGE value="feat: create user work" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: create user work" />
+  </component>
+</project>

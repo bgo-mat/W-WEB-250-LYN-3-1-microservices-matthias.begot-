@@ -17,8 +17,8 @@ class JwtService
     public function generateToken($userId)
     {
         $payload = [
-            'iss' => "http://example.org",
-            'aud' => "http://example.com",
+            'iss' => "http://localhost",
+            'aud' => "http://localhost",
             'iat' => time(),
             'nbf' => time(),
             'exp' => time() + (3600 * 24),
