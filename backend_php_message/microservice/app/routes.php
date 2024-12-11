@@ -10,11 +10,9 @@ return function (App $app) {
     $container = $app->getContainer();
     $jwtService = new JwtService($container->get('jwt_secret'));
 
-    // User routes (public)
     $app->post('/register', [new UserController($jwtService), 'register']);
     $app->post('/login', [new UserController($jwtService), 'login']);
 
-    // User CRUD (admin or protected ? Dans ce cas, protégé par token)
     $app->group('/users', function ($group) use ($jwtService) {
         $group->get('', [new UserController($jwtService), 'getAll']);
         $group->get('/{id}', [new UserController($jwtService), 'getOne']);
@@ -22,7 +20,6 @@ return function (App $app) {
         $group->delete('/{id}', [new UserController($jwtService), 'delete']);
     })->add(new JwtMiddleware($jwtService));
 
-    // Message routes (auth required)
     $app->group('/messages', function ($group) use ($jwtService) {
         $group->get('', [new MessageController(), 'getAll']);
         $group->get('/{id}', [new MessageController(), 'getOne']);
