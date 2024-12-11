@@ -3,7 +3,7 @@ version: '3.8'
 services:
     php:
         build:
-            context: .
+            context: ./backend_php_message
             dockerfile: docker/php/dockerfile
         container_name: my_microservice_php
         working_dir: /var/www/html
@@ -20,7 +20,9 @@ services:
             - db
 
     nginx:
-        build: docker/nginx
+        build:
+            context: ./backend_php_message/docker/nginx
+            dockerfile: dockerfile
         container_name: my_microservice_nginx
         ports:
             - "8080:80"
@@ -28,6 +30,17 @@ services:
             - ./:/var/www/html
         depends_on:
             - php
+
+    react:
+        build:
+            context: ./frontend_react
+            dockerfile: Dockerfile
+        container_name: my_microservice_react
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./frontend_react:/app
+            - /app/node_modules
 
     db:
         image: mysql:8.0
