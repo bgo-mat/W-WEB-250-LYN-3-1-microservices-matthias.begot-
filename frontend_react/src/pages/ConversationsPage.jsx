@@ -14,7 +14,6 @@ export default function ConversationsPage() {
             navigate('/');
             return;
         }
-        //fetchConversations(token).then(data => setConversations(data.conversations));
     }, [token, navigate]);
 
     return (

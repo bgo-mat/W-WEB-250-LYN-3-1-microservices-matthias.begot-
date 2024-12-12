@@ -8,7 +8,6 @@ use Monolog\Handler\StreamHandler;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        // Définition du logger
         Logger::class => function (ContainerInterface $c) {
             $settings = $c->get('settings');
             $logger = new Logger($settings['logger']['name']);
@@ -16,7 +15,6 @@ return function (ContainerBuilder $containerBuilder) {
             return $logger;
         },
 
-        // Définition de la DB (Eloquent)
         'db' => function (ContainerInterface $c) {
             $settings = $c->get('settings');
             $capsule = new Capsule();
@@ -26,7 +24,6 @@ return function (ContainerBuilder $containerBuilder) {
             return $capsule;
         },
 
-        // Définition du secret JWT
         'jwt_secret' => function (ContainerInterface $c) {
             return $c->get('settings')['jwt']['secret'];
         },

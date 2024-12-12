@@ -38,7 +38,7 @@ export default function UserSettingsPage() {
         if (window.confirm("Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.")) {
             try {
                 await deleteUser(token);
-                setToken(null); // Déconnexion
+                setToken(null);
                 navigate('/');
             } catch(e) {
                 setFeedback("Erreur lors de la suppression du compte");
@@ -63,7 +63,7 @@ export default function UserSettingsPage() {
                 </button>
             </header>
             <div className="max-w-md w-full mx-auto mt-6 p-4 bg-white rounded shadow">
-                {feedback && <div className="mb-4 text-sm text-center text-red-600">{feedback}</div>}
+                {feedback && <div className="mb-4 text-sm text-center text-green-500">{feedback}</div>}
                 <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Email</label>
                     <input

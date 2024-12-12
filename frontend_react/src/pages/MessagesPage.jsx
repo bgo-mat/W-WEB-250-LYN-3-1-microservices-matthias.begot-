@@ -20,7 +20,6 @@ export default function MessagesPage() {
     const [newMessage, setNewMessage] = useState('');
     const [error, setError] = useState(null);
 
-    // Récupérer les conversations
     useEffect(() => {
         if (!token) {
             navigate('/');
@@ -32,7 +31,6 @@ export default function MessagesPage() {
             .catch((err) => setError(err.message));
     }, [token, navigate]);
 
-    // Récupérer les messages de la conversation sélectionnée
     useEffect(() => {
         if (token && conversationId) {
             getMessages(conversationId, token)
@@ -44,7 +42,6 @@ export default function MessagesPage() {
         }
     }, [token, conversationId]);
 
-    // Envoyer un nouveau message
     const handleSendMessage = async () => {
         if (newMessage.trim() === '') return;
         try {
@@ -56,7 +53,6 @@ export default function MessagesPage() {
         }
     };
 
-    // Mettre à jour un message existant
     const handleUpdateMessage = async (id, content) => {
         try {
             const data = await updateMessage(id, content, token);
@@ -68,7 +64,6 @@ export default function MessagesPage() {
         }
     };
 
-    // Supprimer un message existant
     const handleDeleteMessage = async (id) => {
         if (!window.confirm('Voulez-vous vraiment supprimer ce message ?')) return;
         try {
@@ -103,7 +98,7 @@ export default function MessagesPage() {
                     ) : (
                         messages.map((msg) => (
                             <MessageItem
-                                key={msg.id} // Assurez-vous que msg.id est unique
+                                key={msg.id}
                                 message={msg}
                                 currentUserId={user ? user.id : null}
                                 onUpdate={handleUpdateMessage}
