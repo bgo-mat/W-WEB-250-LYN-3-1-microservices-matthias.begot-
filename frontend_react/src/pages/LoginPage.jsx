@@ -1,11 +1,11 @@
 import {useContext, useEffect, useState} from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { login, register } from '../services/api';
+import {getUserInfo, login, register} from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 
 export default function LoginPage() {
-    const { setToken, token } = useContext(AuthContext);
+    const { setToken, token, setUser } = useContext(AuthContext);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const [logOrRegister, setLogOrRegister] = useState(true);
@@ -20,9 +20,11 @@ export default function LoginPage() {
         try {
             const data = await login(email, password);
             if(data){
-                console.log(data)
                 setToken(data.token);
-                navigate('/conversations');
+                getUserInfo(data.token).then(data2 => {
+                    setUser(data2)
+                    navigate('/conversations');
+                })
             }
         } catch(e) {
             setError(e.message || 'Identifiants incorrects');

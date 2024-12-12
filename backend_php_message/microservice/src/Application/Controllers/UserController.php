@@ -66,47 +66,6 @@ class UserController
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function getOne(Request $request, Response $response, $args): Response
-    {
-        $user = User::find($args['id']);
-        if (!$user) {
-            throw new HttpNotFoundException($request, "User not found");
-        }
-
-        $response->getBody()->write($user->toJson());
-        return $response->withHeader('Content-Type', 'application/json');
-    }
-
-    public function update(Request $request, Response $response, $args): Response
-    {
-        $user = User::find($args['id']);
-        if (!$user) {
-            throw new HttpNotFoundException($request, "User not found");
-        }
-
-        $data = $request->getParsedBody();
-        if (isset($data['name'])) $user->name = $data['name'];
-        if (isset($data['email'])) $user->email = $data['email'];
-        if (isset($data['password'])) $user->password = password_hash($data['password'], PASSWORD_BCRYPT);
-
-        $user->save();
-        $response->getBody()->write($user->toJson());
-        return $response->withHeader('Content-Type', 'application/json');
-    }
-
-    public function delete(Request $request, Response $response, $args): Response
-    {
-        $user = User::find($args['id']);
-        if (!$user) {
-            throw new HttpNotFoundException($request, "User not found");
-        }
-        $user->delete();
-
-        $response->getBody()->write(json_encode(['message' => 'User deleted']));
-        return $response->withHeader('Content-Type', 'application/json');
-    }
-
-    // Nouvelles méthodes pour l'utilisateur connecté (sans {id})
     public function getCurrent(Request $request, Response $response): Response
     {
         $userId = $request->getAttribute('user_id');

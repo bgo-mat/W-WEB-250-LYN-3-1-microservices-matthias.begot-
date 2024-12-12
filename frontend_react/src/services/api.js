@@ -7,6 +7,7 @@ export async function login(email, password) {
     if (!response.ok) {
         throw new Error('Erreur de login');
     }
+
     return response.json();
 }
 
@@ -20,26 +21,6 @@ export async function register(email, name, password) {
         throw new Error('Erreur d\'inscription');
     }
     return response.json();
-}
-
-export async function fetchConversations(token) {
-    const res = await fetch('/api/conversations', {
-        headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if(!res.ok) {
-        throw new Error('Erreur fetching conversations');
-    }
-    return res.json();
-}
-
-export async function fetchMessages(token, conversationId) {
-    const res = await fetch(`/api/conversations/${conversationId}/messages`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if(!res.ok) {
-        throw new Error('Erreur fetching messages');
-    }
-    return res.json();
 }
 
 export async function getUserInfo(token) {
@@ -76,6 +57,67 @@ export async function deleteUser(token) {
     });
     if(!res.ok) {
         throw new Error('Erreur lors de la suppression du compte');
+    }
+    return res.json();
+}
+
+export async function fetchConversations(token) {
+    const res = await fetch('/api/conversations', {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if(!res.ok) {
+        throw new Error('Erreur fetching conversations');
+    }
+    return res.json();
+}
+
+export async function getMessages(conv_id, token) {
+    const res = await fetch(`http://localhost:8080/messages/conversation/${conv_id}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (!res.ok) {
+        throw new Error('Erreur lors de la récupération des messages');
+    }
+    return res.json();
+}
+
+export async function createMessage(conv_id, content, token) {
+    const res = await fetch('http://localhost:8080/messages', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ conv_id, content }),
+    });
+    if (!res.ok) {
+        throw new Error('Erreur lors de la création du message');
+    }
+    return res.json();
+}
+
+export async function updateMessage(id, content, token) {
+    const res = await fetch(`http://localhost:8080/messages/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }),
+    });
+    if (!res.ok) {
+        throw new Error('Erreur lors de la mise à jour du message');
+    }
+    return res.json();
+}
+
+export async function deleteMessage(id, token) {
+    const res = await fetch(`http://localhost:8080/messages/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (!res.ok) {
+        throw new Error('Erreur lors de la suppression du message');
     }
     return res.json();
 }

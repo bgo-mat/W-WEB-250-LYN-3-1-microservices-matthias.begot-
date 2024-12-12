@@ -10,21 +10,17 @@ use Slim\Exception\HttpNotFoundException;
 
 class MessageController
 {
-    public function getAll(Request $request, Response $response): Response
+    public function getByConversation(Request $request, Response $response, $args): Response
     {
-        $messages = Message::with('user')->get();
-        $response->getBody()->write($messages->toJson());
-        return $response->withHeader('Content-Type', 'application/json');
-    }
+        $conv_id = $args['conv_id'];
+        $messages = Message::with('user')->where('conv_id', $conv_id)->get();
 
-    public function getOne(Request $request, Response $response, $args): Response
-    {
-        $message = Message::with('user')->find($args['id']);
-        if (!$message) {
-            throw new HttpNotFoundException($request, "Message not found");
+        if ($messages->isEmpty()) {
+            $response->getBody()->write(json_encode(['message' => 'No messages found for this conversation']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
         }
 
-        $response->getBody()->write($message->toJson());
+        $response->getBody()->write($messages->toJson());
         return $response->withHeader('Content-Type', 'application/json');
     }
 
@@ -33,14 +29,16 @@ class MessageController
         $userId = $request->getAttribute('user_id');
         $data = $request->getParsedBody();
         $content = $data['content'] ?? null;
+        $conv_id = $data['conv_id'] ?? null;
 
-        if (!$content) {
-            throw new HttpBadRequestException($request, "Missing content");
+        if (!$content || !$conv_id) {
+            throw new HttpBadRequestException($request, "Missing content or conv_id");
         }
 
         $message = Message::create([
             'user_id' => $userId,
-            'content' => $content
+            'content' => $content,
+            'conv_id' => $conv_id
         ]);
 
         $response->getBody()->write($message->toJson());

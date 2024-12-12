@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     protected $table = 'messages';
-    protected $fillable = ['user_id', 'content'];
+    protected $fillable = ['user_id', 'content', 'conv_id'];
 
     public function user()
     {

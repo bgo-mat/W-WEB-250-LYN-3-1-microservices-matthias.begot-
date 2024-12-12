@@ -5,8 +5,8 @@ import ConversationItem from '../components/ConversationItem';
 import { useNavigate } from 'react-router-dom';
 
 export default function ConversationsPage() {
-    const { token } = useContext(AuthContext);
-    const [conversations, setConversations] = useState([]);
+    const { token,user } = useContext(AuthContext);
+    const [conversations, setConversations] = useState([1]);
     const navigate = useNavigate();
 
     useEffect(() => {

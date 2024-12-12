@@ -4,7 +4,7 @@ import { getUserInfo, updateUser, deleteUser } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 export default function UserSettingsPage() {
-    const { token, setToken } = useContext(AuthContext);
+    const { token, setToken, user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -16,13 +16,9 @@ export default function UserSettingsPage() {
             navigate('/');
             return;
         }
-        getUserInfo(token).then(data => {
-            setEmail(data.email);
-            setName(data.name);
-        }).catch(() => {
-            navigate('/');
-        });
-    }, [token, navigate]);
+            setEmail(user.email);
+            setName(user.name);
+    }, [token, navigate, user]);
 
     const handleUpdate = async () => {
         setFeedback(null);

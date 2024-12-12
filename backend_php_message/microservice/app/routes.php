@@ -23,16 +23,12 @@ return function (App $app) {
         $group->put('', [new UserController($jwtService), 'updateCurrent']);
         $group->patch('', [new UserController($jwtService), 'updateCurrent']);
         $group->delete('', [new UserController($jwtService), 'deleteCurrent']);
-        $group->get('/{id}', [new UserController($jwtService), 'getOne']);
-        $group->put('/{id}', [new UserController($jwtService), 'update']);
-        $group->delete('/{id}', [new UserController($jwtService), 'delete']);
     })->add(new JwtMiddleware($jwtService));
 
     $app->group('/messages', function ($group) use ($jwtService) {
-        $group->get('', [new MessageController(), 'getAll']);
-        $group->get('/{id}', [new MessageController(), 'getOne']);
-        $group->post('', [new MessageController(), 'create']);
-        $group->put('/{id}', [new MessageController(), 'update']);
-        $group->delete('/{id}', [new MessageController(), 'delete']);
-    })->add(new JwtMiddleware($jwtService));
+            $group->get('/conversation/{conv_id}', [new MessageController(), 'getByConversation']);
+            $group->post('', [new MessageController(), 'create']);
+            $group->put('/{id}', [new MessageController(), 'update']);
+            $group->delete('/{id}', [new MessageController(), 'delete']);
+        })->add(new JwtMiddleware($jwtService));
 };
