@@ -16,8 +16,12 @@ export default function UserSettingsPage() {
             navigate('/');
             return;
         }
+
+        if(user){
             setEmail(user.email);
             setName(user.name);
+        }
+
     }, [token, navigate, user]);
 
     const handleUpdate = async () => {
@@ -41,6 +45,11 @@ export default function UserSettingsPage() {
             }
         }
     };
+
+    function disconect(){
+        localStorage.removeItem('token');
+        window.location.reload();
+    }
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-100">
@@ -95,6 +104,10 @@ export default function UserSettingsPage() {
                         Supprimer mon compte
                     </button>
                 </div>
+            </div>
+
+            <div onClick={disconect} className="cursor-pointer hover:scale-95 transition-all max-w-md w-full mx-auto mt-6 p-4 flex items-center justify-center bg-red-600 text-white rounded shadow">
+                Déconnexion
             </div>
         </div>
     );

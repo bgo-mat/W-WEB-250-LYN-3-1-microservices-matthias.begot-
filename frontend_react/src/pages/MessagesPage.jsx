@@ -1,4 +1,3 @@
-// src/pages/MessagesPage.jsx
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import {
@@ -81,26 +80,26 @@ export default function MessagesPage() {
     };
 
     return (
-        <div className="flex min-h-screen bg-gray-100">
+        <div className="flex min-h-screen bg-gray-50">
             <Sidebar
                 conversations={conversations}
                 onSelect={(id) => navigate(`/messages/${id}`)}
             />
             <div className="flex-1 flex flex-col">
-                <header className="p-4 bg-white border-b border-gray-200 flex items-center justify-between">
-                    <h1 className="text-xl font-semibold text-gray-800">
+                <header className="p-6 bg-white shadow-md flex items-center justify-between">
+                    <h1 className="text-2xl font-semibold text-gray-800">
                         Conversation {conversationId}
                     </h1>
                     <button
-                        className="text-blue-600 hover:underline"
+                        className="text-blue-500 hover:text-blue-700 transition-colors flex items-center"
                         onClick={() => navigate('/settings')}
                     >
                         Paramètres du compte
                     </button>
                 </header>
-                <div className="flex-1 overflow-y-auto p-4">
+                <div className="flex-1 overflow-y-auto p-6">
                     {messages.length === 0 ? (
-                        <p className="text-gray-600">Aucun message dans cette conversation.</p>
+                        <p className="text-gray-500 text-center mt-10">Aucun message dans cette conversation.</p>
                     ) : (
                         messages.map((msg) => (
                             <MessageItem
@@ -113,10 +112,10 @@ export default function MessagesPage() {
                         ))
                     )}
                 </div>
-                <div className="p-4 bg-white border-t border-gray-200 flex">
+                <div className="p-6 bg-white shadow-inner flex items-center">
                     <input
                         type="text"
-                        className="flex-1 border border-gray-300 rounded p-2 mr-2"
+                        className="flex-1 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors"
                         placeholder="Écrire un message..."
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
@@ -127,8 +126,10 @@ export default function MessagesPage() {
                         }}
                     />
                     <button
-                        className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+                        className="ml-4 bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
                         onClick={handleSendMessage}
+                        disabled={!newMessage.trim()}
+                        title="Envoyer"
                     >
                         Envoyer
                     </button>
@@ -136,4 +137,4 @@ export default function MessagesPage() {
             </div>
         </div>
     );
-}
+};
