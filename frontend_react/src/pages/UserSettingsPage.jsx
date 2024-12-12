@@ -7,7 +7,7 @@ export default function UserSettingsPage() {
     const { token, setToken } = useContext(AuthContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [feedback, setFeedback] = useState(null);
 
@@ -18,7 +18,7 @@ export default function UserSettingsPage() {
         }
         getUserInfo(token).then(data => {
             setEmail(data.email);
-            setUsername(data.username);
+            setName(data.name);
         }).catch(() => {
             navigate('/');
         });
@@ -27,7 +27,7 @@ export default function UserSettingsPage() {
     const handleUpdate = async () => {
         setFeedback(null);
         try {
-            await updateUser(token, { email, username, password: password || undefined });
+            await updateUser(token, { email, name, password: password || undefined });
             setFeedback("Informations mises à jour avec succès");
         } catch(e) {
             setFeedback("Erreur lors de la mise à jour");
@@ -72,8 +72,8 @@ export default function UserSettingsPage() {
                     <label className="block text-sm font-semibold mb-1">Nom d'utilisateur</label>
                     <input
                         className="block w-full border border-gray-300 rounded p-2"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
+                        value={name}
+                        onChange={e => setName(e.target.value)}
                     />
                 </div>
                 <div className="mb-6">

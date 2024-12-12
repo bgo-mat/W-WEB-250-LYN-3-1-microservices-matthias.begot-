@@ -10,7 +10,7 @@ export default function ConversationsPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (token) {
+        if (!token) {
             navigate('/');
             return;
         }

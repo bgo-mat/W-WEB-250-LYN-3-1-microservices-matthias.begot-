@@ -7,14 +7,22 @@ use App\Application\Middleware\JwtMiddleware;
 use App\Application\Services\JwtService;
 
 return function (App $app) {
+
+    $app->options('/{routes:.+}', function ($request, $response, $args) {
+        return $response;
+    });
+
     $container = $app->getContainer();
     $jwtService = new JwtService($container->get('jwt_secret'));
 
     $app->post('/register', [new UserController($jwtService), 'register']);
     $app->post('/login', [new UserController($jwtService), 'login']);
 
-    $app->group('/users', function ($group) use ($jwtService) {
-        $group->get('', [new UserController($jwtService), 'getAll']);
+    $app->group('/user', function ($group) use ($jwtService) {
+        $group->get('', [new UserController($jwtService), 'getCurrent']);
+        $group->put('', [new UserController($jwtService), 'updateCurrent']);
+        $group->patch('', [new UserController($jwtService), 'updateCurrent']);
+        $group->delete('', [new UserController($jwtService), 'deleteCurrent']);
         $group->get('/{id}', [new UserController($jwtService), 'getOne']);
         $group->put('/{id}', [new UserController($jwtService), 'update']);
         $group->delete('/{id}', [new UserController($jwtService), 'delete']);

@@ -14,7 +14,7 @@ export default function MessagesPage() {
     const currentUserId = 'me';
 
     useEffect(() => {
-        if (token) {
+        if (!token) {
             navigate('/');
             return;
         }

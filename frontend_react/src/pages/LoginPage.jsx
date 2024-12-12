@@ -1,39 +1,50 @@
-import { useContext, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { login, register } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 
 export default function LoginPage() {
-    const { setToken } = useContext(AuthContext);
+    const { setToken, token } = useContext(AuthContext);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const [logOrRegister, setLogOrRegister] = useState(true);
 
-    async function handleLogin(username, password) {
+    useEffect(() => {
+        if(token!==null)
+            navigate('/conversations')
+    }, [token]);
+
+    async function handleLogin(email, password) {
         setError(null);
         try {
-            const data = await login(username, password);
-            setToken(data.token);
-            navigate('/conversations');
+            const data = await login(email, password);
+            if(data){
+                console.log(data)
+                setToken(data.token);
+                navigate('/conversations');
+            }
         } catch(e) {
             setError(e.message || 'Identifiants incorrects');
         }
     }
 
-    async function handleRegister(email, username, password) {
+    async function handleRegister(email, name, password) {
         setError(null);
         try {
-            const data = await register(email, username, password);
-            setToken(data.token);
-            navigate('/conversations');
+            const data = await register(email, name, password);
+           if(data){
+               setLogOrRegister(false)
+           }
         } catch(e) {
+            console.log(e)
             setError(e.message || 'Erreur lors de l\'inscription');
         }
     }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <LoginForm onLogin={handleLogin} onRegister={handleRegister} error={error} />
+            <LoginForm logOrRegister={logOrRegister} setLogOrRegister={setLogOrRegister} onLogin={handleLogin} onRegister={handleRegister} error={error} />
         </div>
     );
 }

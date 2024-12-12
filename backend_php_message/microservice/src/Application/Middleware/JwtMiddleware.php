@@ -4,6 +4,7 @@ namespace App\Application\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Server\RequestHandlerInterface;
 use App\Application\Services\JwtService;
 
 class JwtMiddleware
@@ -15,7 +16,7 @@ class JwtMiddleware
         $this->jwtService = $jwtService;
     }
 
-    public function __invoke(Request $request, \Slim\Routing\RouteHandler $handler): Response
+    public function __invoke(Request $request, RequestHandlerInterface $handler): Response
     {
         $authHeader = $request->getHeaderLine('Authorization');
         if (!$authHeader) {
