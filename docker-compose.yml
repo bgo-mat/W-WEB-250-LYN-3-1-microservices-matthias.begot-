@@ -54,5 +54,34 @@ services:
         volumes:
             - db_data:/var/lib/mysql
 
+    mongo_discussion:
+        image: mongo:6.0
+        container_name: my_microservice_mongo_discussion
+        restart: always
+        environment:
+            MONGO_INITDB_DATABASE: discussion_db
+        ports:
+            - "27017:27017"
+        volumes:
+            - mongo_discussion_data:/data/db
+
+
+    node_discussion:
+        build: ./backend_node_discussion
+        container_name: my_microservice_node_discussion
+        ports:
+            - "5555:5555"
+        environment:
+            - PORT=5555
+            - MONGO_URI=mongodb://mongo_discussion:27017/discussion_db
+            - JWT_SECRET=your_jwt_secret_key
+        volumes:
+            - ./backend_node_discussion:/usr/src/app
+            - /usr/src/app/node_modules
+        command: [ "npm", "run", "dev" ]
+        depends_on:
+            - mongo_discussion
+
 volumes:
     db_data:
+    mongo_discussion_data:
