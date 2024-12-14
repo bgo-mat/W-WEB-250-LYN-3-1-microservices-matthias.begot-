@@ -34,7 +34,6 @@ class JwtMiddleware
             return $response->withStatus(401)->withHeader('Content-Type', 'application/json');
         }
 
-        // Stocke l'id de l'utilisateur dans la requête
         $request = $request->withAttribute('user_id', $userId);
         return $handler->handle($request);
     }

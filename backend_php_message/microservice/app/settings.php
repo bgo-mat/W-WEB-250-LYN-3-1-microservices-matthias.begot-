@@ -22,7 +22,7 @@ return function (\DI\ContainerBuilder $containerBuilder) {
                 'prefix' => '',
             ],
             'jwt' => [
-                'secret' => getenv('JWT_SECRET') ?: 'secret_key_jwt'
+                'secret' => getenv('JWT_SECRET') ?: 'le_jwt_de_toto_12345'
             ]
         ],
     ]);

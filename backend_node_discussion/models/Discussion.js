@@ -6,14 +6,16 @@ const DiscussionSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    content: {
+    user_id: {
         type: String,
         required: true
     },
-    user_id: {
-        type: Number,
-        required: true
-    }
+    members: [{
+        type: String
+    }],
+    pending_requests: [{
+        type: String
+    }]
 }, {
     timestamps: true
 });

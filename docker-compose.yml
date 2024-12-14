@@ -37,7 +37,9 @@ services:
             dockerfile: Dockerfile
         container_name: my_microservice_react
         ports:
-            - "3000:3000"
+            - "4200:4200"
+        environment:
+            - PORT=4200
         volumes:
             - ./frontend_react:/app
             - /app/node_modules
@@ -81,6 +83,24 @@ services:
         command: [ "npm", "run", "dev" ]
         depends_on:
             - mongo_discussion
+
+    backend_node_connector:
+        build: ./backend_node_connector
+        container_name: my_microservice_connector
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./backend_node_connector:/usr/src/app
+            - /usr/src/app/node_modules
+        environment:
+            - PORT=3000
+            - JWT_SECRET=your_jwt_secret_key
+            - PHP_BACKEND_URL=http://nginx:80
+            - DISCUSSION_BACKEND_URL=http://node_discussion:5555/api/discussions
+        command: [ "npm", "run", "dev" ]
+        depends_on:
+            - php
+            - node_discussion
 
 volumes:
     db_data:
