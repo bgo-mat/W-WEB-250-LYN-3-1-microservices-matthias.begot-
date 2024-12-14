@@ -11,7 +11,11 @@ exports.createDiscussion = async (req, res) => {
             return res.status(400).json({ error: 'Title is required.' });
         }
 
-        const response = await axios.post(`${discussionBackendUrl}/`, { title, user_id });
+        const response = await axios.post(`${discussionBackendUrl}/`, { title, user_id }, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
+        });
 
         res.status(response.status).json(response.data);
     } catch (error) {
@@ -25,7 +29,11 @@ exports.createDiscussion = async (req, res) => {
 
 exports.getAllDiscussions = async (req, res) => {
     try {
-        const response = await axios.get(`${discussionBackendUrl}/`);
+        const response = await axios.get(`${discussionBackendUrl}/`, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
+        });
         res.status(response.status).json(response.data);
     } catch (error) {
         if (error.response) {
@@ -39,7 +47,11 @@ exports.getAllDiscussions = async (req, res) => {
 exports.getDiscussionById = async (req, res) => {
     try {
         const { id } = req.params;
-        const response = await axios.get(`${discussionBackendUrl}/${id}`);
+        const response = await axios.get(`${discussionBackendUrl}/${id}`, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
+        });
         res.status(response.status).json(response.data);
     } catch (error) {
         if (error.response) {
@@ -55,7 +67,11 @@ exports.updateDiscussion = async (req, res) => {
         const { id } = req.params;
         const { title } = req.body;
 
-        const response = await axios.put(`${discussionBackendUrl}/${id}`, { title });
+        const response = await axios.put(`${discussionBackendUrl}/${id}`, { title }, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
+        });
 
         res.status(response.status).json(response.data);
     } catch (error) {
@@ -70,7 +86,11 @@ exports.updateDiscussion = async (req, res) => {
 exports.deleteDiscussion = async (req, res) => {
     try {
         const { id } = req.params;
-        const response = await axios.delete(`${discussionBackendUrl}/${id}`);
+        const response = await axios.delete(`${discussionBackendUrl}/${id}`, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
+        });
         res.status(response.status).json(response.data);
     } catch (error) {
         if (error.response) {
@@ -90,7 +110,11 @@ exports.joinDiscussion = async (req, res) => {
             return res.status(400).json({ error: 'discussion_id is required.' });
         }
 
-        const response = await axios.post(`${discussionBackendUrl}/join`, { user_id, discussion_id });
+        const response = await axios.post(`${discussionBackendUrl}/join`, { user_id, discussion_id }, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
+        });
 
         res.status(response.status).json(response.data);
     } catch (error) {
@@ -113,6 +137,10 @@ exports.getNewJoinRequests = async (req, res) => {
 
         const response = await axios.get(`${discussionBackendUrl}/newJoin`, {
             params: { conv_id, creator_id: user_id }
+        }, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
         });
 
         res.status(response.status).json(response.data);
@@ -136,6 +164,10 @@ exports.acceptJoin = async (req, res) => {
 
         const response = await axios.post(`${discussionBackendUrl}/acceptJoin`, { conv_id, user_id, decision }, {
             headers: { 'creator_id': requester_id }
+        }, {
+            headers: {
+                'Authorization': req.headers['authorization']
+            }
         });
 
         res.status(response.status).json(response.data);

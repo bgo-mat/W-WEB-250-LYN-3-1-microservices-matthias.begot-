@@ -15,7 +15,7 @@ services:
             - DB_DATABASE=mydb
             - DB_USER=root
             - DB_PASS=password
-            - JWT_SECRET=secret_key_jwt
+            - JWT_SECRET=le_jwt_de_toto_12345
         depends_on:
             - db
 
@@ -76,7 +76,7 @@ services:
         environment:
             - PORT=5555
             - MONGO_URI=mongodb://mongo_discussion:27017/discussion_db
-            - JWT_SECRET=your_jwt_secret_key
+            - JWT_SECRET=le_jwt_de_toto_12345
         volumes:
             - ./backend_node_discussion:/usr/src/app
             - /usr/src/app/node_modules
@@ -94,7 +94,7 @@ services:
             - /usr/src/app/node_modules
         environment:
             - PORT=3000
-            - JWT_SECRET=your_jwt_secret_key
+            - JWT_SECRET=le_jwt_de_toto_12345
             - PHP_BACKEND_URL=http://nginx:80
             - DISCUSSION_BACKEND_URL=http://node_discussion:5555/api/discussions
         command: [ "npm", "run", "dev" ]

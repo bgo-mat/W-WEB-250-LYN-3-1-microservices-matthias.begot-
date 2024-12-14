@@ -14,6 +14,7 @@ export function AuthProvider({ children }) {
             localStorage.setItem('token', token);
             getUserInfo(token).then(data2 => {
                 setUser(data2)
+                console.log(data2)
             })
         }
     }, [token]);

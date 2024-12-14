@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { FiEdit2, FiTrash2, FiSave, FiX } from 'react-icons/fi';
 
-export default function MessageItem({ message, currentUserId, onUpdate, onDelete }) {
+export default function MessageItem({ message, currentUserId, onUpdate, onDelete, onAcceptJoin, isCreator }) {
     const isOwn = (message.user?.id ?? message.user_id) === currentUserId;
     const [isEditing, setIsEditing] = useState(false);
     const [editContent, setEditContent] = useState(message.content);
+
+    // Déterminer si le message est une demande de rejoindre
+    const isJoinRequest = message.content.endsWith('a demandé à rejoindre la conversation.');
 
     const handleUpdate = () => {
         if (editContent.trim() !== '') {
@@ -15,9 +18,10 @@ export default function MessageItem({ message, currentUserId, onUpdate, onDelete
 
     return (
         <div className={`flex mb-4 ${isOwn ? 'justify-end' : 'justify-start'}`}>
-            <div
-            >
-                <p className={`text-xs text-gray-500 ${isOwn ? 'text-end' : 'text-start'}`}>{isOwn ? "moi" : message.user.name}</p>
+            <div>
+                <p className={`text-xs text-gray-500 ${isOwn ? 'text-end' : 'text-start'}`}>
+                    {isOwn ? "Moi" : (message.user?.name || 'Système')}
+                </p>
                 {isEditing ? (
                     <div className={`w-auto p-3 rounded-lg shadow ${
                         isOwn ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-900'
@@ -49,7 +53,7 @@ export default function MessageItem({ message, currentUserId, onUpdate, onDelete
                         isOwn ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-900'
                     }`}>
                         <p className="whitespace-pre-wrap">{message.content}</p>
-                        {isOwn && (
+                        {isOwn && !isJoinRequest && (
                             <div className="flex space-x-2">
                                 <button
                                     className="text-yellow-200 hover:text-gray-600 transition-colors"
@@ -67,9 +71,25 @@ export default function MessageItem({ message, currentUserId, onUpdate, onDelete
                                 </button>
                             </div>
                         )}
+                        {isJoinRequest && isCreator && (
+                            <div className="mt-2 flex space-x-2">
+                                <button
+                                    className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                                    onClick={() => onAcceptJoin(message.user?.id || message.user_id, true)}
+                                >
+                                    Accepter
+                                </button>
+                                <button
+                                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+                                    onClick={() => onAcceptJoin(message.user?.id || message.user_id, false)}
+                                >
+                                    Rejeter
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
         </div>
     );
-};
+}
