@@ -62,53 +62,59 @@ export default function UserSettingsPage() {
                     Retour
                 </button>
             </header>
-            <div className="max-w-md w-full mx-auto mt-6 p-4 bg-white rounded shadow">
-                {feedback && <div className="mb-4 text-sm text-center text-green-500">{feedback}</div>}
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold mb-1">Email</label>
-                    <input
-                        className="block w-full border border-gray-300 rounded p-2"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        type="email"
-                    />
+
+            <div className="flex flex-col justify-center items-center h-[80vh]">
+                <div className="max-w-md w-full mt-6 p-4 bg-white rounded shadow">
+                    {feedback && <div className="mb-4 text-sm text-center text-green-500">{feedback}</div>}
+                    <div className="mb-4">
+                        <label className="block text-sm font-semibold mb-1">Email</label>
+                        <input
+                            className="block w-full border border-gray-300 rounded p-2"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            type="email"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-semibold mb-1">Nom d'utilisateur</label>
+                        <input
+                            className="block w-full border border-gray-300 rounded p-2"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label className="block text-sm font-semibold mb-1">Nouveau mot de passe (laisser vide si
+                            inchangé)</label>
+                        <input
+                            className="block w-full border border-gray-300 rounded p-2"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            type="password"
+                        />
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <button
+                            className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+                            onClick={handleUpdate}
+                        >
+                            Mettre à jour
+                        </button>
+                        <button
+                            className="text-red-600 hover:underline"
+                            onClick={handleDeleteAccount}
+                        >
+                            Supprimer mon compte
+                        </button>
+                    </div>
                 </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold mb-1">Nom d'utilisateur</label>
-                    <input
-                        className="block w-full border border-gray-300 rounded p-2"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                </div>
-                <div className="mb-6">
-                    <label className="block text-sm font-semibold mb-1">Nouveau mot de passe (laisser vide si inchangé)</label>
-                    <input
-                        className="block w-full border border-gray-300 rounded p-2"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        type="password"
-                    />
-                </div>
-                <div className="flex justify-between items-center">
-                    <button
-                        className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-                        onClick={handleUpdate}
-                    >
-                        Mettre à jour
-                    </button>
-                    <button
-                        className="text-red-600 hover:underline"
-                        onClick={handleDeleteAccount}
-                    >
-                        Supprimer mon compte
-                    </button>
+
+                <div onClick={disconect}
+                     className="cursor-pointer hover:scale-95 transition-all max-w-md w-full mt-6 p-4 flex items-center justify-center bg-red-600 text-white rounded shadow">
+                    Déconnexion
                 </div>
             </div>
 
-            <div onClick={disconect} className="cursor-pointer hover:scale-95 transition-all max-w-md w-full mx-auto mt-6 p-4 flex items-center justify-center bg-red-600 text-white rounded shadow">
-                Déconnexion
-            </div>
         </div>
     );
 }
