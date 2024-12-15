@@ -1,9 +1,7 @@
-// src/pages/ConversationsPage.jsx
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import {
     joinDiscussion,
-    createMessage,
     getDiscussion,
     createConversation,
     updateDiscussion,
@@ -17,8 +15,6 @@ export default function ConversationsPage() {
     const [conversations, setConversations] = useState([]);
     const navigate = useNavigate();
     const [error, setError] = useState(null);
-
-    // États pour gérer la création des conversations
     const [newConversationTitle, setNewConversationTitle] = useState('');
     const [isCreating, setIsCreating] = useState(false);
 

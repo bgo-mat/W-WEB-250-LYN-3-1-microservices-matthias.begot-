@@ -1,4 +1,3 @@
-// src/components/ConversationItem.jsx
 import {useContext, useEffect, useState} from 'react';
 import { FiEdit2, FiTrash2, FiSave, FiX } from 'react-icons/fi';
 import {AuthContext} from "../context/AuthContext";
@@ -46,7 +45,7 @@ export default function ConversationItem({
 
     return (
         <div
-            className={`p-4 border-b border-gray-100 flex justify-between rounded-md bg-white items-center hover:bg-gray-50 ${
+            className={`p-4 mb-2 border-b border-gray-100 flex justify-between rounded-md bg-white items-center hover:bg-gray-50 ${
                 isMember ? 'cursor-pointer' : 'cursor-default opacity-90'
             }`}
             onClick={isMember ? () => onClick(conversation._id) : undefined}

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { getUserInfo, updateUser, deleteUser } from '../services/api';
+import {  updateUser, deleteUser } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 export default function UserSettingsPage() {

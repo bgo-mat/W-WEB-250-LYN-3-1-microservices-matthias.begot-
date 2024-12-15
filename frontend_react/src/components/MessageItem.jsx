@@ -5,7 +5,6 @@ export default function MessageItem({ message, currentUserId, onUpdate, onDelete
     const isOwn = (message.user?.id ?? message.user_id) === currentUserId;
     const [isEditing, setIsEditing] = useState(false);
     const [editContent, setEditContent] = useState(message.content);
-
     const isJoinRequest = message.content.endsWith('a demandé à rejoindre la conversation.');
 
     const handleUpdate = () => {
@@ -14,11 +13,6 @@ export default function MessageItem({ message, currentUserId, onUpdate, onDelete
             setIsEditing(false);
         }
     };
-
-    useEffect(() => {
-        console.log("isCreator:", isCreator);
-        console.log("isJoinRequest:", isJoinRequest);
-    }, [isJoinRequest,isCreator]);
 
     return (
         <div className={`flex mb-4 ${isOwn ? 'justify-end' : 'justify-start'}`}>

@@ -1,4 +1,3 @@
-// src/pages/MessagesPage.jsx
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import {
@@ -17,7 +16,6 @@ export default function MessagesPage() {
     const { token, user } = useContext(AuthContext);
     const navigate = useNavigate();
     const { conversationId } = useParams();
-    const [conversations, setConversations] = useState([]);
     const [messages, setMessages] = useState([]);
     const [conversation, setConversation] = useState(null);
     const [newMessage, setNewMessage] = useState('');
@@ -35,7 +33,7 @@ export default function MessagesPage() {
     useEffect(() => {
         if (token && conversationId) {
             getConversationDetails(conversationId, token)
-                .then((data) => {setConversations(data);
+                .then((data) => {setConversation(data);
                 if(data.user_id === user?.id.toString()){
                     setIsCreator(true)
                 }
