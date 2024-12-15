@@ -1,18 +1,23 @@
 // src/components/ConversationItem.jsx
-import { useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { FiEdit2, FiTrash2, FiSave, FiX } from 'react-icons/fi';
+import {AuthContext} from "../context/AuthContext";
 
 export default function ConversationItem({
                                              conversation,
                                              onClick,
-                                             isMember,
+                                             members,
                                              onJoin,
                                              onEdit,
                                              onDelete,
-                                             isCreator
+                                             creatorId
                                          }) {
     const [isEditing, setIsEditing] = useState(false);
     const [editedTitle, setEditedTitle] = useState(conversation.title);
+    const { token, user } = useContext(AuthContext);
+    const [isMember, setIsMember] = useState(false);
+    const [isCreator, setIsCreator] = useState(false);
+    const [haveRequest, setHaveRequest] = useState(false);
 
     const handleSave = () => {
         if (editedTitle.trim() !== '') {
@@ -21,10 +26,31 @@ export default function ConversationItem({
         }
     };
 
+    useEffect(() => {
+        if (user && members) {
+            setIsMember(members.includes(user.id.toString()));
+        }
+    }, [user, members]);
+
+    useEffect(() => {
+        if(creatorId ===  user?.id.toString()){
+            setIsCreator(true)
+        }
+        else {
+            setIsCreator(false)
+        }
+
+        setHaveRequest(conversation.pending_requests.includes(user?.id.toString()));
+
+    }, [user, creatorId]);
+
     return (
         <div
-            className="p-4 border-b border-gray-100 flex justify-between items-center hover:bg-gray-50 cursor-pointer"
-            onClick={() => onClick(conversation._id)}
+            className={`p-4 border-b border-gray-100 flex justify-between rounded-md bg-white items-center hover:bg-gray-50 ${
+                isMember ? 'cursor-pointer' : 'cursor-default opacity-90'
+            }`}
+            onClick={isMember ? () => onClick(conversation._id) : undefined}
+            title={isMember ? "Cliquez pour ouvrir la conversation" : "Rejoignez la conversation pour accéder aux messages"}
         >
             <div className="flex flex-col">
                 {isEditing ? (
@@ -33,7 +59,7 @@ export default function ConversationItem({
                         className="border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         value={editedTitle}
                         onChange={(e) => setEditedTitle(e.target.value)}
-                        onClick={(e) => e.stopPropagation()} // Empêche la navigation lors du clic dans le champ
+                        onClick={(e) => e.stopPropagation()}
                     />
                 ) : (
                     <div className="font-semibold text-gray-900">{conversation.title}</div>
@@ -43,17 +69,21 @@ export default function ConversationItem({
                 </div>
             </div>
             <div className="flex items-center space-x-2">
-                {!isMember && (
+                {!isMember && !haveRequest && (
                     <button
                         className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-colors"
                         onClick={(e) => {
-                            e.stopPropagation(); // Empêche le clic de la conversation
+                            e.stopPropagation();
                             onJoin(conversation._id);
+                            setHaveRequest(true)
                         }}
                         title="Rejoindre"
                     >
                         Rejoindre
                     </button>
+                )}
+                {haveRequest && (
+                    <p className="text-yellow-500">Demande en attente</p>
                 )}
                 {isCreator && (
                     <>
@@ -62,23 +92,23 @@ export default function ConversationItem({
                                 <button
                                     className="text-green-500 hover:text-green-700"
                                     onClick={(e) => {
-                                        e.stopPropagation(); // Empêche le clic de la conversation
+                                        e.stopPropagation();
                                         handleSave();
                                     }}
                                     title="Sauvegarder"
                                 >
-                                    <FiSave />
+                                    <FiSave/>
                                 </button>
                                 <button
                                     className="text-red-500 hover:text-red-700"
                                     onClick={(e) => {
-                                        e.stopPropagation(); // Empêche le clic de la conversation
+                                        e.stopPropagation();
                                         setIsEditing(false);
                                         setEditedTitle(conversation.title);
                                     }}
                                     title="Annuler"
                                 >
-                                    <FiX />
+                                    <FiX/>
                                 </button>
                             </>
                         ) : (
@@ -86,22 +116,22 @@ export default function ConversationItem({
                                 <button
                                     className="text-blue-500 hover:text-blue-700"
                                     onClick={(e) => {
-                                        e.stopPropagation(); // Empêche le clic de la conversation
+                                        e.stopPropagation();
                                         setIsEditing(true);
                                     }}
                                     title="Éditer"
                                 >
-                                    <FiEdit2 />
+                                    <FiEdit2/>
                                 </button>
                                 <button
                                     className="text-red-500 hover:text-red-700"
                                     onClick={(e) => {
-                                        e.stopPropagation(); // Empêche le clic de la conversation
+                                        e.stopPropagation();
                                         onDelete(conversation._id);
                                     }}
                                     title="Supprimer"
                                 >
-                                    <FiTrash2 />
+                                    <FiTrash2/>
                                 </button>
                             </>
                         )}

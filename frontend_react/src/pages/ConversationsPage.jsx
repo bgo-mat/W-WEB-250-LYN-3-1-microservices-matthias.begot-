@@ -27,24 +27,16 @@ export default function ConversationsPage() {
             navigate('/');
             return;
         }
-        console.log(user)
         getDiscussion(token)
             .then((data) => {
                 setConversations(data);
-                console.log(data);
             })
             .catch((err) => setError(err.message));
     }, [token, navigate]);
 
     const handleJoin = async (conversationId) => {
         try {
-            // Envoyer la demande de rejoindre
             await joinDiscussion(user.id, conversationId, token);
-            // Créer un message système indiquant la demande de rejoindre
-            await createMessage(conversationId, `${user.name} a demandé à rejoindre la conversation.`, token);
-            // Rafraîchir les conversations pour mettre à jour la liste des membres
-            const data = await getDiscussion(token);
-            setConversations(data);
         } catch (err) {
             setError(err.message);
         }
@@ -85,18 +77,17 @@ export default function ConversationsPage() {
     return (
 
         <div className="min-h-screen bg-gray-100 flex flex-col">
-            <header className="p-4 bg-white border-b border-gray-200 flex justify-between items-center">
-                <h1 className="text-xl font-semibold text-gray-800">Mes Conversations</h1>
-                <div className="flex space-x-4">
+            <header className="p-6 border-b-2 border-gray-200 h-32">
+                <div className="flex flex-col">
                     {!isCreating ? (
                         <button
-                            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+                            className="bg-green-500 text-white px-4 py-2 mb-2 rounded hover:bg-green-600 transition-colors"
                             onClick={() => setIsCreating(true)}
                         >
                             Créer une Conversation
                         </button>
                     ) : (
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-2 mb-2">
                             <input
                                 type="text"
                                 className="border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
@@ -122,8 +113,9 @@ export default function ConversationsPage() {
                             </button>
                         </div>
                     )}
+
                     <button
-                        className="text-blue-600 hover:underline"
+                        className="bg-blue-400 text-white justify-center px-4 py-2 rounded hover:bg-blue-500 transition-colors flex items-center"
                         onClick={() => navigate('/settings')}
                     >
                         Paramètres du compte
@@ -131,9 +123,6 @@ export default function ConversationsPage() {
                 </div>
             </header>
             <div className="flex-1 overflow-y-auto p-4">
-                {error && (
-                    <div className="mb-4 text-red-600 text-center">{error}</div>
-                )}
                 {conversations.length === 0 ? (
                     <p className="text-gray-600">Aucune conversation.</p>
                 ) : (
@@ -141,12 +130,12 @@ export default function ConversationsPage() {
                         <ConversationItem
                             key={conv._id}
                             conversation={conv}
-                            isMember={conv.members}
+                            members={conv.members}
                             onClick={(id) => navigate(`/messages/${id}`)}
                             onJoin={handleJoin}
                             onEdit={handleUpdateConversation}
                             onDelete={handleDeleteConversation}
-                            isCreator={conv.user_id === user?.id}
+                            creatorId={conv.user_id}
                         />
                     ))
                 )}

@@ -111,4 +111,28 @@ class UserController
         $response->getBody()->write(json_encode(['message' => 'User deleted']));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function getUserById(Request $request, Response $response, array $args): Response
+    {
+        $id = $args['id'] ?? null;
+
+        if (!$id) {
+            throw new HttpBadRequestException($request, "User ID is required");
+        }
+
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new HttpNotFoundException($request, "User not found");
+        }
+
+        $userData = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ];
+
+        $response->getBody()->write(json_encode($userData));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }

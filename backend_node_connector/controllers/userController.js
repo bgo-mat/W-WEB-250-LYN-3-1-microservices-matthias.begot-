@@ -72,3 +72,26 @@ exports.deleteCurrentUser = async (req, res) => {
         }
     }
 };
+
+exports.getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ error: 'User ID is required.' });
+        }
+
+        const response = await axios.get(`${phpBackendUrl}/user/${id}`,
+            {
+                headers: { 'Authorization': req.headers['authorization'] }
+            });
+        res.status(response.status).json(response.data);
+    } catch (error) {
+        if (error.response) {
+            res.status(error.response.status).json(error.response.data);
+        } else {
+            res.status(500).json({ error: 'Error connecting to PHP backend.', details: error.message });
+        }
+    }
+};
+

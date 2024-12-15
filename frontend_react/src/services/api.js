@@ -35,6 +35,17 @@ export async function getUserInfo(token) {
     return res.json();
 }
 
+export async function getUserById(id, token) {
+    const res = await fetch(`${backend_url}/user/${id}`,
+        {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+    if(!res.ok) {
+        throw new Error('Erreur fetching user info');
+    }
+    return res.json();
+}
+
 export async function updateUser(token, { email, name, password }) {
     const body = { email, name };
     if (password) {

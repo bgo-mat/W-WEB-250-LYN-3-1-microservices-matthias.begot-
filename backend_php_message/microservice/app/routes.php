@@ -23,6 +23,7 @@ return function (App $app) {
         $group->put('', [new UserController($jwtService), 'updateCurrent']);
         $group->patch('', [new UserController($jwtService), 'updateCurrent']);
         $group->delete('', [new UserController($jwtService), 'deleteCurrent']);
+        $group->get('/{id}', [new UserController($jwtService), 'getUserById']);
     })->add(new JwtMiddleware($jwtService));
 
     $app->group('/messages', function ($group) use ($jwtService) {

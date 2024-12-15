@@ -161,13 +161,10 @@ exports.acceptJoin = async (req, res) => {
         if (!conv_id || !user_id || decision === undefined) {
             return res.status(400).json({ error: 'conv_id, user_id, and decision are required.' });
         }
-
+        console.log(req.headers['authorization'])
         const response = await axios.post(`${discussionBackendUrl}/acceptJoin`, { conv_id, user_id, decision }, {
-            headers: { 'creator_id': requester_id }
-        }, {
-            headers: {
-                'Authorization': req.headers['authorization']
-            }
+            headers: { 'creator_id': requester_id,
+                'Authorization': req.headers['authorization']}
         });
 
         res.status(response.status).json(response.data);

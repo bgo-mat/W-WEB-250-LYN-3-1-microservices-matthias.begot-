@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { FiEdit2, FiTrash2, FiSave, FiX } from 'react-icons/fi';
 
 export default function MessageItem({ message, currentUserId, onUpdate, onDelete, onAcceptJoin, isCreator }) {
@@ -6,7 +6,6 @@ export default function MessageItem({ message, currentUserId, onUpdate, onDelete
     const [isEditing, setIsEditing] = useState(false);
     const [editContent, setEditContent] = useState(message.content);
 
-    // Déterminer si le message est une demande de rejoindre
     const isJoinRequest = message.content.endsWith('a demandé à rejoindre la conversation.');
 
     const handleUpdate = () => {
@@ -15,6 +14,11 @@ export default function MessageItem({ message, currentUserId, onUpdate, onDelete
             setIsEditing(false);
         }
     };
+
+    useEffect(() => {
+        console.log("isCreator:", isCreator);
+        console.log("isJoinRequest:", isJoinRequest);
+    }, [isJoinRequest,isCreator]);
 
     return (
         <div className={`flex mb-4 ${isOwn ? 'justify-end' : 'justify-start'}`}>

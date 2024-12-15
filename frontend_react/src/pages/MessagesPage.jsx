@@ -7,11 +7,11 @@ import {
     updateMessage,
     deleteMessage,
     getConversationDetails,
-    acceptJoin, getDiscussion,
+    acceptJoin, getUserById,
 } from '../services/api';
 import { useParams, useNavigate } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
 import MessageItem from '../components/MessageItem';
+import ConversationsPage from "./ConversationsPage";
 
 export default function MessagesPage() {
     const { token, user } = useContext(AuthContext);
@@ -19,68 +19,84 @@ export default function MessagesPage() {
     const { conversationId } = useParams();
     const [conversations, setConversations] = useState([]);
     const [messages, setMessages] = useState([]);
-    const [conversation, setConversation] = useState(null); // Détails de la conversation
+    const [conversation, setConversation] = useState(null);
     const [newMessage, setNewMessage] = useState('');
     const [error, setError] = useState(null);
+    const [isCreator, setIsCreator] = useState(false);
+    const [pendingUsers, setPendingUsers] = useState([]);
 
-    // Récupérer les conversations
     useEffect(() => {
         if (!token) {
             navigate('/');
-            return;
         }
-
-        getDiscussion(token)
-            .then((data) => setConversations(data.conversations))
-            .catch((err) => setError(err.message));
     }, [token, navigate]);
 
-    // Récupérer les détails de la conversation
+
     useEffect(() => {
         if (token && conversationId) {
             getConversationDetails(conversationId, token)
-                .then((data) => setConversation(data))
+                .then((data) => {setConversations(data);
+                if(data.user_id === user?.id.toString()){
+                    setIsCreator(true)
+                }
+                else{
+                    setIsCreator(false)
+                }
+
+                    if (data.pending_requests.length > 0 && Array.isArray(data.pending_requests)) {
+                        fetchPendingUsers(data.pending_requests);
+                    } else {
+                        setPendingUsers([]);
+                    }
+                })
                 .catch((err) => setError(err.message));
         }
-    }, [token, conversationId]);
+    }, [token, conversationId, user]);
 
-    // Récupérer les messages de la conversation sélectionnée
+    const fetchPendingUsers = async (pendingRequestIds) => {
+        try {
+            const userPromises = pendingRequestIds.map((id) => getUserById(id, token));
+            const users = await Promise.all(userPromises);
+            console.log(users)
+            setPendingUsers(users);
+        } catch (err) {
+            console.error('Erreur lors de la récupération des utilisateurs en attente:', err);
+            setError('Erreur lors de la récupération des utilisateurs en attente.');
+        }
+    };
+
     useEffect(() => {
         if (token && conversationId) {
             getMessages(conversationId, token)
                 .then((data) => {
-                    setMessages(data); // data est un tableau de messages
-                    console.log(data);
+                    setMessages(data);
                 })
                 .catch((err) => setError(err.message));
         }
     }, [token, conversationId]);
 
-    // Envoyer un nouveau message
     const handleSendMessage = async () => {
         if (newMessage.trim() === '') return;
         try {
             const data = await createMessage(conversationId, newMessage, token);
-            setMessages((prev) => [...prev, data.message]); // Ajoutez l'objet message complet
+            setMessages((prev) => [...prev, data]);
             setNewMessage('');
         } catch (e) {
             setError(e.message || 'Erreur lors de l\'envoi du message');
         }
     };
 
-    // Mettre à jour un message existant
     const handleUpdateMessage = async (id, content) => {
         try {
             const data = await updateMessage(id, content, token);
             setMessages((prev) =>
-                prev.map((msg) => (msg.id === id ? data.message : msg)) // Remplacez le message complet
+                prev.map((msg) => (msg.id === id ? data : msg))
             );
         } catch (e) {
             setError(e.message || 'Erreur lors de la mise à jour du message');
         }
     };
 
-    // Supprimer un message existant
     const handleDeleteMessage = async (id) => {
         if (!window.confirm('Voulez-vous vraiment supprimer ce message ?')) return;
         try {
@@ -91,35 +107,10 @@ export default function MessagesPage() {
         }
     };
 
-    // Accepter ou rejeter une demande de rejoindre
     const handleAcceptJoin = async (userId, decision) => {
         try {
             await acceptJoin(conversationId, userId, decision, token);
-            // Trouver le message de demande de rejoindre pour obtenir le nom de l'utilisateur
-            const joinRequestMessage = messages.find(msg =>
-                (msg.user_id === userId || msg.user?.id === userId) &&
-                msg.content.endsWith('a demandé à rejoindre la conversation.')
-            );
-            const userName = joinRequestMessage ? (joinRequestMessage.user?.name || 'Un utilisateur') : 'Un utilisateur';
-
-            // Créer un message système indiquant la décision
-            const systemMessageContent = decision
-                ? `${userName} a rejoint la conversation.`
-                : `La demande de rejoindre de ${userName} a été rejetée.`;
-
-            await createMessage(conversationId, systemMessageContent, token);
-
-            // Rafraîchir les messages
-            const updatedMessages = await getMessages(conversationId, token);
-            setMessages(updatedMessages);
-
-            // Mettre à jour les membres de la conversation si accepté
-            if (decision && conversation) {
-                setConversation(prev => ({
-                    ...prev,
-                    members: [...prev.members, userId],
-                }));
-            }
+            setPendingUsers((prev) => prev.filter((user) => user.id !== userId));
         } catch (err) {
             setError(err.message);
         }
@@ -127,25 +118,38 @@ export default function MessagesPage() {
 
     return (
         <div className="flex min-h-screen bg-gray-50">
-            <Sidebar
-                conversations={conversations}
-                onSelect={(id) => navigate(`/messages/${id}`)}
-            />
+            <ConversationsPage></ConversationsPage>
             <div className="flex-1 flex flex-col">
-                <header className="p-6 bg-white shadow-md flex items-center justify-between">
-                    <h1 className="text-2xl font-semibold text-gray-800">
-                        Conversation {conversationId}
+                <header className="p-6  flex items-center justify-end">
+                    <h1 className="text-2xl font-semibold text-gray-800 border-b-2 border-gray-900">
+                        Conversation {conversation?.title}
                     </h1>
-                    <button
-                        className="text-blue-500 hover:text-blue-700 transition-colors flex items-center"
-                        onClick={() => navigate('/settings')}
-                    >
-                        Paramètres du compte
-                    </button>
                 </header>
                 <div className="flex-1 overflow-y-auto p-6">
-                    {error && (
-                        <div className="mb-4 text-red-600 text-center">{error}</div>
+                    {isCreator && pendingUsers.length > 0 && (
+                        <div className="space-y-2 mb-6 flex justify-center">
+                            {pendingUsers.map((pendingUser) => (
+                                <div key={pendingUser.id} className="p-4 w-fit border border-yellow-400 rounded flex items-center gap-2 justify-center">
+                                    <p className="text-yellow-800">
+                                        {pendingUser.name} souhaite rejoindre la discussion.
+                                    </p>
+                                    <div className="mt-2 space-x-2">
+                                        <button
+                                            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                                            onClick={() => handleAcceptJoin(pendingUser.id, true)}
+                                        >
+                                            Accepter
+                                        </button>
+                                        <button
+                                            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                            onClick={() => handleAcceptJoin(pendingUser.id, false)}
+                                        >
+                                            Rejeter
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     )}
                     {messages.length === 0 ? (
                         <p className="text-gray-500 text-center mt-10">Aucun message dans cette conversation.</p>
@@ -154,11 +158,11 @@ export default function MessagesPage() {
                             <MessageItem
                                 key={msg.id}
                                 message={msg}
-                                currentUserId={user ? user.id : null}
+                                currentUserId={user ? user?.id : null}
                                 onUpdate={handleUpdateMessage}
                                 onDelete={handleDeleteMessage}
                                 onAcceptJoin={handleAcceptJoin}
-                                isCreator={conversation ? conversation.creator_id === user.id : false}
+                                isCreator={isCreator}
                             />
                         ))
                     )}

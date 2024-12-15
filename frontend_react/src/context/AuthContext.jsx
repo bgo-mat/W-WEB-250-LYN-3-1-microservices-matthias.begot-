@@ -9,7 +9,7 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         if (!token) {
-            localStorage.setItem('token', token);
+            localStorage.removeItem('token');
         } else {
             localStorage.setItem('token', token);
             getUserInfo(token).then(data2 => {
